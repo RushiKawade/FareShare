@@ -1,0 +1,38 @@
+{% extends 'offerride/base.html' %}
+
+ {% block body %}
+	<form action="{% url 'offerride:join' %}" method="post">
+         {% csrf_token %}
+	{% for ride in all_rides %}
+        <div class="w3-container" align ="center" style="padding-top: 25px;">
+          <div class="w3-card-4" style="width:70%">
+            <header class="w3-container w3-light-grey">
+                <h3> {{ ride.startpoint }} <b>TO</b> {{ ride.endpoint }}</h3>
+            </header>
+            <div class="w3-container">
+              <p> Via : {{ ride.ipoint1 }} , {{ride.ipoint2 }} {{ forloop.counter }}</p>
+              <p> Date : {{ ride.date }} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Time : {{ride.time }}</p>
+				<p> Price : {{ ride.price }} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Available Seats : {{ride.seat }}</p>
+              <!--<img src="car.jpg" alt="Avatar" class="w3-left w3-margin-right" style="width:100px"> -->
+            </div>
+            <button class="w3-button w3-block w3-dark-grey" type="submit"  value="{{ forloop.counter }}" name="join">JOIN</button>
+          </div>
+        </div>
+	{% endfor %}
+	</form>
+
+{% endblock %}
+
+
+<!--<h3>Current rides available.</h3>
+		<ul>
+			{% for ride in all_rides %}
+				{% if startpoint == ride.startpoint or endpoint == ride.endpoint or endpoint == ride.ipoint1 or endpoint == ride.ipoint2 %}
+					<li><a href="#">{{ride.startpoint}}-{{ride.endpoint}}</a></li>
+			{% endif %}
+			{% endfor %}
+
+
+		</ul>
+
+		<h3>You don't have rides</h3>-->
